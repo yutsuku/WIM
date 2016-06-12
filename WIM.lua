@@ -812,7 +812,7 @@ end
 function WIM_SendWho(name)
 	WIM_Windows[name].waiting_who = true;
 	SetWhoToUI(1);
-	SendWho("\""..name.."\"");
+	SendWho("n-\""..name.."\"");
 end
 
 
