@@ -864,7 +864,7 @@ function WIM_InitClassProps()
 	WIM_ClassColors[WIM_LOCALIZED_PALADIN]	= "f58cba";
 	WIM_ClassColors[WIM_LOCALIZED_PRIEST]	= "ffffff";
 	WIM_ClassColors[WIM_LOCALIZED_ROGUE]	= "fff569";
-	WIM_ClassColors[WIM_LOCALIZED_SHAMAN]	= "f58cba";
+	WIM_ClassColors[WIM_LOCALIZED_SHAMAN]	= "0070DE";
 	WIM_ClassColors[WIM_LOCALIZED_WARLOCK]	= "9482ca";
 	WIM_ClassColors[WIM_LOCALIZED_WARRIOR]	= "c79c6e";
 end
