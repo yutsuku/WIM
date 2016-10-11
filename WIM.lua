@@ -265,9 +265,11 @@ function WIM_ChatFrame_OnEvent(event)
 		WIM_PostMessage(arg2, msg, 3);
 		ChatEdit_SetLastTellTarget(ChatFrameEditBox,arg2);
 	elseif(event == "CHAT_MSG_WHISPER") then
+		local isGM = nil;
+		if arg6 and arg6 == "GM" then isGM = true end
 		if(WIM_FilterResult(arg1) ~= 1 and WIM_FilterResult(arg1) ~= 2) then
 			msg = "[|Hplayer:"..arg2.."|h"..WIM_GetAlias(arg2, true).."|h]: "..arg1;
-			WIM_PostMessage(arg2, msg, 1, arg2, arg1);
+			WIM_PostMessage(arg2, msg, 1, arg2, arg1, isGM);
 		end
 		ChatEdit_SetLastTellTarget(ChatFrameEditBox,arg2);
 	elseif(event == "CHAT_MSG_WHISPER_INFORM") then
@@ -350,7 +352,7 @@ function WIM_ChatFrameSupressor_OnEvent(event)
 end
 
 
-function WIM_PostMessage(user, msg, ttype, from, raw_msg)
+function WIM_PostMessage(user, msg, ttype, from, raw_msg, isGM)
 		--[[
 			ttype:
 				1 - Wisper from someone
@@ -380,6 +382,7 @@ function WIM_PostMessage(user, msg, ttype, from, raw_msg)
 									race="",
 									guild=""
 								};
+			if isGM then WIM_Windows[user]["class"] = "GM"; WIM_SetWhoInfo(user) end
 			f.theUser = user;
 			getglobal("WIM_msgFrame"..user.."From"):SetText(WIM_GetAlias(user));
 			WIM_Icon_AddUser(user);
@@ -857,6 +860,7 @@ function WIM_InitClassProps()
 	WIM_ClassIcons[WIM_LOCALIZED_SHAMAN] 	= "Interface\\AddOns\\WIM\\Images\\classSHAMAN";
 	WIM_ClassIcons[WIM_LOCALIZED_WARLOCK] 	= "Interface\\AddOns\\WIM\\Images\\classWARLOCK";
 	WIM_ClassIcons[WIM_LOCALIZED_WARRIOR] 	= "Interface\\AddOns\\WIM\\Images\\classWARRIOR";
+	WIM_ClassIcons["GM"] 					= "Interface\\AddOns\\WIM\\Images\\classGM";
 	
 	WIM_ClassColors[WIM_LOCALIZED_DRUID]	= "ff7d0a";
 	WIM_ClassColors[WIM_LOCALIZED_HUNTER]	= "abd473";
@@ -867,6 +871,7 @@ function WIM_InitClassProps()
 	WIM_ClassColors[WIM_LOCALIZED_SHAMAN]	= "0070DE";
 	WIM_ClassColors[WIM_LOCALIZED_WARLOCK]	= "9482ca";
 	WIM_ClassColors[WIM_LOCALIZED_WARRIOR]	= "c79c6e";
+	WIM_ClassColors["GM"]					= "00AEFF";
 end
 
 function WIM_UserWithClassColor(theUser)
